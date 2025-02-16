@@ -1,0 +1,24 @@
+<!-- 
+main.html
+
+Homepage for Burger Haven.
+
+Author: Jane Pan
+Date: February 14, 2025
+-->
+
+{% extends "restaurant/base.html" %} {% load static %} {% block content %}
+<h2>About Burger Haven</h2>
+
+<!-- Display location details -->
+<p>Location: {{ location }}</p>
+
+<!-- Display restaurant hours -->
+<p>Hours:</p>
+<ul>
+  {% for hour in hours %}
+  <li>{{ hour }}</li>
+  {% endfor %}
+</ul>
+
+{# Removed the second image that was causing issues #} {% endblock %}

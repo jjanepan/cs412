@@ -1,0 +1,55 @@
+<!-- 
+base.html
+
+Base template for the restaurant application.
+
+Author: Jane Pan
+Date: February 14, 2025
+-->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta Information -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Page Title -->
+    <title>Burger Haven</title>
+
+    <!-- Link to External CSS File -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'restaurant/style.css' %}"
+    />
+  </head>
+  <body>
+    <header>
+      <!-- Website Title -->
+      <h1>Burger Haven</h1>
+
+      <!-- Burger Image in the Header -->
+      <img
+        src="{% static 'restaurant/burger.jpg' %}"
+        alt="Delicious Burger"
+        width="200"
+      />
+
+      <!-- Navigation Menu -->
+      <nav>
+        <a href="{% url 'main' %}">Home</a> |
+        <a href="{% url 'order' %}">Order</a>
+      </nav>
+    </header>
+
+    <!-- Main Content Block (to be replaced in child templates) -->
+    <main>{% block content %} {% endblock %}</main>
+
+    <!-- Footer Section -->
+    <footer>
+      <p>&copy; Burger Haven</p>
+    </footer>
+  </body>
+</html>

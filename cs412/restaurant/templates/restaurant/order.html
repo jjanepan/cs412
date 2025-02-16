@@ -1,0 +1,70 @@
+<!-- 
+order.html
+
+Order placement page for Burger Haven.
+
+Author: Jane Pan
+Date: February 14, 2025
+-->
+
+{% extends "restaurant/base.html" %} {% block content %}
+<h2>Place Your Order</h2>
+
+<!-- Order form -->
+<form method="POST" action="{% url 'confirmation' %}">
+  {% csrf_token %}
+
+  <!-- Menu selection section -->
+  <fieldset>
+    <legend>Menu Items</legend>
+    {% for item in menu_items %}
+    <label>
+      <input type="checkbox" name="{{ item.name }}" />
+      {{ item.name }} - ${{ item.price }} </label
+    ><br />
+    {% endfor %}
+  </fieldset>
+
+  <!-- Daily special selection -->
+  <fieldset>
+    <legend>Daily Special</legend>
+    <p>
+      Today's Special: {{ daily_special.name }} - ${{ daily_special.price }}
+    </p>
+    <label>
+      <input
+        type="checkbox"
+        name="daily_special"
+        value="{{ daily_special.price }}"
+      />
+      Include Daily Special
+    </label>
+    <!-- Hidden fields to pass daily special details -->
+    <input
+      type="hidden"
+      name="daily_special_name"
+      value="{{ daily_special.name }}"
+    />
+    <input
+      type="hidden"
+      name="daily_special_price"
+      value="{{ daily_special.price }}"
+    />
+  </fieldset>
+
+  <!-- Customer information section -->
+  <fieldset>
+    <legend>Customer Information</legend>
+    <label>Name: <input type="text" name="name" required /></label><br />
+    <label>Phone: <input type="text" name="phone" required /></label><br />
+    <label>Email: <input type="email" name="email" required /></label><br />
+    <label
+      >Special Instructions:<br />
+      <textarea name="instructions" rows="3"></textarea>
+    </label>
+  </fieldset>
+
+  <!-- Submit button -->
+  <button type="submit">Submit Order</button>
+</form>
+{% endblock %}
