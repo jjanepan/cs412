@@ -1,0 +1,42 @@
+<!--
+  File: base.html
+  Author: Jane Pan (jjanepan@bu.edu)
+  Description: Base template for the Mini Facebook application.
+               This file provides the standard HTML structure (head, body),
+               links to the external CSS file, and defines sections for header,
+               navigation, main content (via a content block), and footer.
+-->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mini Facebook</title>
+    <!-- Link to the CSS file located in static/css/style.css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    <!-- Header Section: Contains the site title -->
+    <header>
+      <h1>Mini Facebook</h1>
+    </header>
+
+    <!-- Navigation Section: Placeholder for future navigation links -->
+    <nav>
+      <!-- Future navigation links go here -->
+    </nav>
+
+    <!-- Main Section: Content from child templates will be injected here -->
+    <main>
+      {% block content %}
+      <!-- Child template content will be inserted here -->
+      {% endblock %}
+    </main>
+
+    <!-- Footer Section: Displays copyright information -->
+    <footer>
+      <p>&copy; 2025 Mini Facebook</p>
+    </footer>
+  </body>
+</html>

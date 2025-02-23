@@ -1,0 +1,51 @@
+{% extends "base.html" %} {# Template: profile_list.html Description: This
+template extends "base.html" and displays a list of user profiles in a table
+format, including their first name, last name, city, and profile image. The
+first name links to a detailed profile page. Author: [Your Name] Date: [Current
+Date] #} {% block content %}
+<h2>All Profiles</h2>
+
+<table border="1">
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>City</th>
+    <th>Profile Image</th>
+  </tr>
+
+  {% for profile in profiles %}
+  <tr>
+    <!-- First Name: Link to detail page -->
+    <td>
+      <a href="{% url 'show_profile' profile.pk %}">
+        {{ profile.first_name }}
+      </a>
+    </td>
+
+    <!-- Last Name -->
+    <td>{{ profile.last_name }}</td>
+
+    <!-- City -->
+    <td>{{ profile.city }}</td>
+
+    <!-- Profile Image (if available) -->
+    <td>
+      {% if profile.profile_image_url %}
+      <a href="{% url 'show_profile' profile.pk %}">
+        <img
+          src="{{ profile.profile_image_url }}"
+          alt="Profile image"
+          width="50"
+        />
+      </a>
+      {% else %} No image {% endif %}
+    </td>
+  </tr>
+  {% empty %}
+  <tr>
+    <td colspan="4">No profiles found.</td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}

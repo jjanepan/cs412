@@ -1,0 +1,86 @@
+/*
+  File: style.css
+  Description: CSS file for Mini Facebook.
+               Acubi style: a clean, modern look with flat design elements.
+*/
+
+/* Reset default margins, paddings, and set box-sizing for consistency */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Base styling for the body */
+body {
+  font-family: Arial, sans-serif;  /* Modern sans-serif font */
+  background-color: #f4f4f4;         /* Light gray background */
+  color: #333;                     /* Dark text for readability */
+  line-height: 1.6;
+}
+
+/* Header styling */
+header {
+  background-color: #1a73e8;         /* A modern blue shade */
+  color: #fff;                     /* White text */
+  padding: 20px 0;                 /* Vertical padding */
+  text-align: center;              /* Centered text */
+}
+
+/* Navigation styling */
+nav {
+  background-color: #f8f9fa;        /* Light background for nav */
+  border-bottom: 2px solid #ddd;    /* Subtle bottom border */
+  padding: 10px 0;
+}
+
+nav ul {
+  list-style: none;                /* Remove bullet points */
+  display: flex;                   /* Use flexbox for horizontal layout */
+  justify-content: center;         /* Center the navigation items */
+}
+
+nav ul li {
+  margin: 0 15px;                  /* Space between navigation items */
+}
+
+nav ul li a {
+  text-decoration: none;           /* Remove underlines */
+  color: #333;                     /* Dark text color */
+  font-weight: bold;               /* Bold font */
+}
+
+/* Main content styling */
+main {
+  max-width: 1200px;               /* Limit content width */
+  margin: 20px auto;               /* Center with margin */
+  padding: 20px;
+  background-color: #fff;          /* White background for content */
+}
+
+/* Table styling for displaying profiles */
+table {
+  width: 100%;                     /* Full width table */
+  border-collapse: collapse;       /* Collapse borders */
+  margin-bottom: 20px;             /* Space below table */
+}
+
+table, th, td {
+  border: 1px solid #ddd;          /* Light border for table elements */
+}
+
+th, td {
+  padding: 10px;                   /* Padding inside table cells */
+  text-align: left;                /* Left-align text */
+}
+
+/* Footer styling */
+footer {
+  background-color: #333;          /* Dark background */
+  color: #fff;                     /* White text */
+  text-align: center;              /* Centered text */
+  padding: 10px 0;                 /* Vertical padding */
+  position: fixed;                 /* Fix at the bottom */
+  bottom: 0;
+  width: 100%;                     /* Full width */
+}
