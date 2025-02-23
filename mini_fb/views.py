@@ -1,12 +1,17 @@
-from django.views.generic import ListView
-from django.views.generic import DetailView
+# views.py - Views for the Profiles App
+# This file defines class-based views (CBVs) for displaying profile-related information.
 
-from .models import Profile
+from django.views.generic import ListView, DetailView  # Import generic class-based views
+from .models import Profile  # Import the Profile model
+
+# View to display a list of all profiles
 class ShowAllProfilesView(ListView):
-    model = Profile
-    template_name = 'show_all_profiles.html'
-    context_object_name = 'profiles'
+    model = Profile  # Specifies the model to query
+    template_name = 'show_all_profiles.html'  # Template used to render the view
+    context_object_name = 'profiles'  # Custom name for the context variable passed to the template
+
+# View to display the details of a single profile
 class ShowProfilePageView(DetailView):
-    model = Profile
-    template_name = 'show_profile.html'
-    # By default, the context object name is "object" or "profile" depending on the model
+    model = Profile  # Specifies the model to query
+    template_name = 'show_profile.html'  # Template used to render the view
+    # By default, Django sets the context object name to "object" or the model name in lowercase ("profile" in this case)
