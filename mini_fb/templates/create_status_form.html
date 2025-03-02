@@ -1,0 +1,18 @@
+<!-- mini_fb/templates/create_status_form.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Create Status</title>
+  </head>
+  <body>
+    <h1>
+      Post a status message for {{ profile.first_name }} {{ profile.last_name }}
+    </h1>
+
+    <form method="POST">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Create Status</button>
+      <a href="{% url 'show_profile' profile.pk %}">Cancel</a>
+    </form>
+  </body>
+</html>

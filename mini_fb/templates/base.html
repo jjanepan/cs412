@@ -22,9 +22,14 @@
       <h1>Mini Facebook</h1>
     </header>
 
-    <!-- Navigation Section: Placeholder for future navigation links -->
+    <!-- Navigation Section: Links to other parts of the application -->
     <nav>
-      <!-- Future navigation links go here -->
+      <ul>
+        <!-- Link to view all profiles -->
+        <li><a href="{% url 'show_all_profiles' %}">All Profiles</a></li>
+        <!-- Link to create a new profile -->
+        <li><a href="{% url 'create_profile' %}">Create a New Profile</a></li>
+      </ul>
     </nav>
 
     <!-- Main Section: Content from child templates will be injected here -->

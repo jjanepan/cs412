@@ -1,17 +1,46 @@
-{% extends "base.html" %} {# Template: profile_detail.html Description: This
-template extends "base.html" and displays detailed information about a user
-profile, including their name, city, email, and profile image. Author: Jane Pan
-#} {% block content %}
+<!--
+  File: show_profile.html
+  Author: Jane Pan (jjanepan@bu.edu)
+  Description: Profile page template for the Mini Facebook application.
+               This template displays a user's profile information, including 
+               their name, city, email, profile image, and status messages.
+-->
+
+{% extends "base.html" %} {% block content %}
 <h2>{{ object.first_name }} {{ object.last_name }}</h2>
 
-<!-- Larger image display -->
+<!-- Display profile image if available, otherwise show a placeholder message -->
 {% if object.profile_image_url %}
 <img src="{{ object.profile_image_url }}" alt="Profile image" width="200" />
 {% else %}
 <p>No profile image provided.</p>
 {% endif %}
 
+<!-- Display user details -->
 <p><strong>City:</strong> {{ object.city }}</p>
 <p><strong>Email:</strong> {{ object.email }}</p>
 
+<!-- Display status messages if any exist -->
+<h3>Status Messages</h3>
+{% with status_messages=object.get_status_messages %} {% if status_messages %}
+<ul>
+  {% for status in status_messages %}
+  <li>
+    <em>{{ status.timestamp|date:"M d, Y H:i" }}</em>: {{ status.message }}
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No status messages found.</p>
+{% endif %} {% endwith %}
+
+<!-- Link to create a new status message for this profile -->
+<p>
+  <a href="{% url 'create_status' object.pk %}">Post a Status Message</a>
+</p>
+
+<!-- Hyperlink back to the list of all profiles -->
+<p>
+  <a href="{% url 'show_all_profiles' %}">Back to All Profiles</a>
+</p>
 {% endblock %}

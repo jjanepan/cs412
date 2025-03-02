@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- 
+      Create a Profile Page 
+      This page provides a form for users to create a new profile.
+      It includes CSRF protection and uses Django's template syntax 
+      to render the form dynamically.
+    -->
+    <title>Create a Profile</title>
+  </head>
+  <body>
+    <h1>Create a Profile</h1>
+    <p>Fill in the form below to create your new profile.</p>
+
+    <form method="POST">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Create Profile!</button>
+      <!-- Link to cancel profile creation and return to the profile list -->
+      <a href="{% url 'show_all_profiles' %}">Cancel</a>
+    </form>
+  </body>
+</html>
