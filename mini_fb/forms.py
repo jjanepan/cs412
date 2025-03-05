@@ -26,3 +26,14 @@ class CreateStatusMessageForm(forms.ModelForm):
     class Meta:
         model = StatusMessage
         fields = ['message']
+
+class UpdateProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        # exclude first_name, last_name if you don't want them updated
+        fields = ['city', 'email', 'profile_image_url']
+
+class UpdateStatusMessageForm(forms.ModelForm):
+    class Meta:
+        model = StatusMessage
+        fields = ['message']  # only let user edit the text

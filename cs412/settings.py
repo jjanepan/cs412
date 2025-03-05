@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mini_fb',  # your custom app
+    'mini_fb',  # app
 ]
 
 MIDDLEWARE = [
@@ -122,7 +122,7 @@ STATICFILES_DIRS = [
 
 # Media (if you have user-uploaded files)
 MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 
 # 3) Adjust URLs if you're on cs-webapps.bu.edu
 CS_DEPLOYMENT_HOSTNAME = 'cs-webapps.bu.edu'

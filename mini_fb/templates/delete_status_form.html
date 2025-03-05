@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Delete Status</title>
+  </head>
+  <body>
+    <h1>Delete this status message?</h1>
+    <p>{{ status.timestamp|date:"M d, Y H:i" }} - {{ status.message }}</p>
+
+    <!-- Confirm Delete: POST to same URL -->
+    <form method="POST">
+      {% csrf_token %}
+      <button type="submit">Confirm Delete</button>
+    </form>
+
+    <!-- Cancel: GET back to profile -->
+    <form action="{% url 'show_profile' status.profile.pk %}" method="GET">
+      <button type="submit">Cancel</button>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Update Status</title>
+  </head>
+  <body>
+    <h1>Update Status Message</h1>
+    <form method="POST">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Save</button>
+      <a href="{% url 'show_profile' object.profile.pk %}">Cancel</a>
+    </form>
+  </body>
+</html>

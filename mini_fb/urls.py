@@ -11,14 +11,26 @@ from .views import (
     ShowAllProfilesView,
     ShowProfilePageView,
     CreateProfileView,
-    CreateStatusMessageView
+    CreateStatusMessageView,
+    UpdateProfileView,
+    UpdateStatusMessageView,  # Added missing import
+    DeleteStatusMessageView
 )
 
 urlpatterns = [
     path('', ShowAllProfilesView.as_view(), name='show_all_profiles'),
     path('profile/<int:pk>/', ShowProfilePageView.as_view(), name='show_profile'),
     path('create_profile/', CreateProfileView.as_view(), name='create_profile'),
-
-    # New URL pattern for creating a status message
+    
+    # URL pattern for creating a status message
     path('profile/<int:pk>/create_status/', CreateStatusMessageView.as_view(), name='create_status'),
+    
+    # URL pattern for updating a profile (with trailing slash for consistency)
+    path('profile/<int:pk>/update/', UpdateProfileView.as_view(), name='update_profile'),
+    
+    # URL pattern for updating a status message (trailing slash added)
+    path('status/<int:pk>/update/', UpdateStatusMessageView.as_view(), name='update_status'),
+
+    path('status/<int:pk>/delete', DeleteStatusMessageView.as_view(), name='delete_status'),
+
 ]
