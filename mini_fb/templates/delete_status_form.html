@@ -1,3 +1,26 @@
+<!-- 
+  mini_fb/templates/delete_status_confirm.html
+
+  Status Deletion Confirmation Page
+  ---------------------------------
+  This page allows users to confirm the deletion of a status message.
+  It displays the status message and timestamp before deletion.
+
+  Features:
+  - Displays the status message and its timestamp.
+  - Implements CSRF protection using `{% csrf_token %}` for security.
+  - Provides a confirmation button to delete the status (POST request).
+  - Includes a cancel button that redirects back to the profile page (GET request).
+
+  Dependencies:
+  - Django template rendering (Django's built-in template syntax).
+  - A view handling the status deletion logic.
+  - A URL pattern named 'show_profile' that requires `status.profile.pk` for redirection.
+
+  Author: [Your Name]
+  Date: [Current Date]
+-->
+
 <!DOCTYPE html>
 <html>
   <head>

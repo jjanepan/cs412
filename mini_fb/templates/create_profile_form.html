@@ -2,10 +2,23 @@
 <html>
   <head>
     <!-- 
-      Create a Profile Page 
+      Profile Creation Page
+      ----------------------
       This page provides a form for users to create a new profile.
-      It includes CSRF protection and uses Django's template syntax 
-      to render the form dynamically.
+      It dynamically renders the form using Django's template syntax 
+      and includes CSRF protection for security.
+      
+      Features:
+      - Uses Django's form rendering with `form.as_p` for structured input.
+      - Implements CSRF protection using `{% csrf_token %}` to prevent attacks.
+      - Provides a cancel button that redirects to the profile list page.
+
+      Dependencies:
+      - Django template rendering (Django's built-in template syntax).
+      - A view that handles the profile creation logic.
+      - A URL pattern named 'show_all_profiles' for cancel navigation.
+
+
     -->
     <title>Create a Profile</title>
   </head>

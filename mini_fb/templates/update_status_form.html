@@ -1,3 +1,26 @@
+<!-- 
+  mini_fb/templates/update_status_form.html
+
+  Status Update Page
+  ------------------
+  This page allows users to update an existing status message. It dynamically 
+  populates the form with the current status message data using Django's template syntax.
+
+  Features:
+  - Uses Django form rendering with `form.as_p` for structured input.
+  - Implements CSRF protection using `{% csrf_token %}` for security.
+  - Provides a save button to submit the form and update the status.
+  - Includes a cancel button that redirects back to the profile page.
+
+  Dependencies:
+  - Django template rendering (Django's built-in template syntax).
+  - A view handling the status update logic.
+  - A URL pattern named 'show_profile' that requires `object.profile.pk` for redirection.
+
+  Author: [Your Name]
+  Date: [Current Date]
+-->
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -5,9 +28,11 @@
   </head>
   <body>
     <h1>Update Status Message</h1>
+
     <form method="POST">
       {% csrf_token %} {{ form.as_p }}
       <button type="submit">Save</button>
+      <!-- Link to cancel and return to the profile page -->
       <a href="{% url 'show_profile' object.profile.pk %}">Cancel</a>
     </form>
   </body>

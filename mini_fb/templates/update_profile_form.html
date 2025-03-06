@@ -1,3 +1,25 @@
+<!-- 
+  mini_fb/templates/update_profile_form.html
+
+  Profile Update Page
+  -------------------
+  This page allows users to update an existing profile. It dynamically 
+  populates the form with the current profile data using Django's template syntax.
+
+  Features:
+  - Displays the profile name dynamically using `{{ object.first_name }} {{ object.last_name }}`.
+  - Uses Django form rendering with `form.as_p` for structured input.
+  - Implements CSRF protection using `{% csrf_token %}` for security.
+  - Provides a save button to submit the form and update the profile.
+  - Includes a cancel button that redirects back to the profile page.
+
+  Dependencies:
+  - Django template rendering (Django's built-in template syntax).
+  - A view handling the profile update logic.
+  - A URL pattern named 'show_profile' that requires `object.pk` for redirection.
+
+-->
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -5,9 +27,11 @@
   </head>
   <body>
     <h1>Update Profile for {{ object.first_name }} {{ object.last_name }}</h1>
+
     <form method="POST">
       {% csrf_token %} {{ form.as_p }}
       <button type="submit">Save</button>
+      <!-- Link to cancel and return to the profile page -->
       <a href="{% url 'show_profile' object.pk %}">Cancel</a>
     </form>
   </body>
