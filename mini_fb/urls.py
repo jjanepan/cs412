@@ -7,6 +7,8 @@ Description: This file defines the URL patterns for the Mini Facebook applicatio
 """
 
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from .views import (
     ShowAllProfilesView,
     ShowProfilePageView,
@@ -28,9 +30,12 @@ urlpatterns = [
     # URL pattern for updating a profile (with trailing slash for consistency)
     path('profile/<int:pk>/update/', UpdateProfileView.as_view(), name='update_profile'),
     
-    # URL pattern for updating a status message (trailing slash added)
+    # URL pattern for updating a status message (with trailing slash)
     path('status/<int:pk>/update/', UpdateStatusMessageView.as_view(), name='update_status'),
 
-    path('status/<int:pk>/delete', DeleteStatusMessageView.as_view(), name='delete_status'),
-
+    # URL pattern for deleting a status message (added trailing slash)
+    path('status/<int:pk>/delete/', DeleteStatusMessageView.as_view(), name='delete_status'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
