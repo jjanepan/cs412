@@ -1,7 +1,7 @@
 /*
   File: style.css
-  Description: CSS file for Mini Facebook.
-               Acubi style: a clean, modern look with flat design elements.
+  Description: CSS file for Mini Facebook (Acubi style).
+               A clean, modern look with flat design elements.
 */
 
 /* Reset default margins, paddings, and set box-sizing for consistency */
@@ -11,76 +11,157 @@
   box-sizing: border-box;
 }
 
-/* Base styling for the body */
+/* Body styling */
 body {
-  font-family: Arial, sans-serif;  /* Modern sans-serif font */
-  background-color: #f4f4f4;         /* Light gray background */
-  color: #333;                     /* Dark text for readability */
+  font-family: Arial, sans-serif; /* Modern sans-serif font */
+  background-color: #f4f4f4;      /* Light gray background */
+  color: #333;                    /* Dark text for readability */
   line-height: 1.6;
+  padding-bottom: 60px;          /* Extra space so footer doesn't overlap content */
+}
+
+/* Container to wrap main content */
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff; /* White background for main content */
+  border-radius: 8px;     /* Rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 /* Header styling */
 header {
-  background-color: #1a73e8;         /* A modern blue shade */
-  color: #fff;                     /* White text */
-  padding: 20px 0;                 /* Vertical padding */
-  text-align: center;              /* Centered text */
+  background-color: #1a73e8; /* A modern blue shade */
+  color: #fff;               /* White text */
+  padding: 20px 0;
+  text-align: center;        /* Centered text */
+  margin-bottom: 20px;
 }
 
 /* Navigation styling */
 nav {
-  background-color: #f8f9fa;        /* Light background for nav */
-  border-bottom: 2px solid #ddd;    /* Subtle bottom border */
+  background-color: #f8f9fa; /* Light background for nav */
+  border-bottom: 2px solid #ddd;
   padding: 10px 0;
 }
 
 nav ul {
-  list-style: none;                /* Remove bullet points */
-  display: flex;                   /* Use flexbox for horizontal layout */
-  justify-content: center;         /* Center the navigation items */
+  list-style: none;
+  display: flex;
+  justify-content: center;
 }
 
 nav ul li {
-  margin: 0 15px;                  /* Space between navigation items */
+  margin: 0 15px;
 }
 
 nav ul li a {
-  text-decoration: none;           /* Remove underlines */
-  color: #333;                     /* Dark text color */
-  font-weight: bold;               /* Bold font */
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  transition: color 0.3s;
 }
 
-/* Main content styling */
-main {
-  max-width: 1200px;               /* Limit content width */
-  margin: 20px auto;               /* Center with margin */
-  padding: 20px;
-  background-color: #fff;          /* White background for content */
+nav ul li a:hover {
+  color: #1a73e8;
 }
 
-/* Table styling for displaying profiles */
+/* Headings */
+h1, h2, h3 {
+  margin-bottom: 1em;
+}
+
+/* Profile Image in show_profile.html */
+.profile-image {
+  display: block;
+  max-width: 200px;
+  margin-bottom: 1em;
+  border-radius: 8px; /* Optional round corners */
+}
+
+/* Profile details container */
+.profile-details {
+  margin-bottom: 2em;
+}
+
+/* Status messages list */
+.status-list {
+  list-style-type: none;
+  margin: 1em 0;
+  padding: 0;
+}
+
+.status-message {
+  background: #fafafa;
+  border: 1px solid #ddd;
+  padding: 1em;
+  border-radius: 5px;
+  margin-bottom: 1em;
+}
+
+.status-message em {
+  color: #666; /* Subtle color for timestamps */
+}
+
+.status-message img {
+  max-width: 100%;
+  height: auto;
+  margin: 0.5em 0;
+}
+
+/* Friends list */
+.friend-list {
+  list-style-type: none;
+  margin: 1em 0;
+  padding: 0;
+}
+
+.friend-list li {
+  margin-bottom: 0.5em;
+}
+
+/* Links for actions (Update, Delete, etc.) */
+.action-link {
+  text-decoration: none;
+  color: #1a73e8;
+  font-weight: bold;
+  margin-right: 1em;
+}
+
+.action-link:hover {
+  text-decoration: underline;
+}
+
+/* Table styling (if used for profiles) */
 table {
-  width: 100%;                     /* Full width table */
-  border-collapse: collapse;       /* Collapse borders */
-  margin-bottom: 20px;             /* Space below table */
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
 }
 
 table, th, td {
-  border: 1px solid #ddd;          /* Light border for table elements */
+  border: 1px solid #ddd;
 }
 
 th, td {
-  padding: 10px;                   /* Padding inside table cells */
-  text-align: left;                /* Left-align text */
+  padding: 10px;
+  text-align: left;
 }
 
 /* Footer styling */
 footer {
-  background-color: #333;          /* Dark background */
-  color: #fff;                     /* White text */
-  text-align: center;              /* Centered text */
-  padding: 10px 0;                 /* Vertical padding */
-  position: fixed;                 /* Fix at the bottom */
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  position: fixed; /* Sticks to bottom of page */
   bottom: 0;
-  width: 100%;                     /* Full width */
+  width: 100%;
 }
+
+/* Utility classes */
+.mt-1 { margin-top: 1em; }
+.mt-2 { margin-top: 2em; }
+.mb-1 { margin-bottom: 1em; }
+.mb-2 { margin-bottom: 2em; }

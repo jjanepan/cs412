@@ -127,9 +127,8 @@ MEDIA_URL = '/media/'
 # 3) Adjust URLs if you're on cs-webapps.bu.edu
 CS_DEPLOYMENT_HOSTNAME = 'cs-webapps.bu.edu'
 if socket.gethostname() == CS_DEPLOYMENT_HOSTNAME:
-    # Replace 'username' with your BU username
-    STATIC_URL = '/username/static/'
-    MEDIA_URL = '/username/media/'
+    STATIC_URL = '/jjanepan/static/'
+    MEDIA_URL = '/jjanepan/media/'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

@@ -1,0 +1,57 @@
+<!--
+  File: news_feed.html
+  Author: Jane Pan (jjanepan@bu.edu)
+  Description: Template for displaying a user's news feed. It shows status messages
+               from friends, including timestamps and any associated images.
+-->
+
+{% extends "base.html" %} {% block content %}
+<!-- Page title displaying the profile owner's name -->
+<h2>News Feed for {{ profile.first_name }} {{ profile.last_name }}</h2>
+
+<!-- Check if there are any status updates in the news feed -->
+{% if news_feed %}
+<ul>
+  <!-- Loop through each status update -->
+  {% for status in news_feed %}
+  <li>
+    <strong>
+      <!-- Link to the profile of the user who posted the status -->
+      <a href="{% url 'show_profile' status.profile.pk %}">
+        {{ status.profile.first_name }} {{ status.profile.last_name }} </a
+      >:
+    </strong>
+
+    <!-- Display the status message text -->
+    {{ status.message }}
+    <br />
+
+    <!-- Display the formatted timestamp of the status update -->
+    <em>{{ status.timestamp|date:"M d, Y H:i" }}</em>
+
+    <!-- Display any images associated with the status update -->
+    {% with images=status.get_images %} {% if images %} {% for img in images %}
+    <p>
+      <!-- Show the image with a fixed width -->
+      <img
+        src="{{ img.image_file.url }}"
+        alt="Image {{ img.pk }}"
+        width="200"
+      />
+
+      <!-- Show image caption if available -->
+      {% if img.caption %}
+      <br />{{ img.caption }} {% endif %}
+    </p>
+    {% endfor %} {% endif %} {% endwith %}
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<!-- Display message if no status updates are available -->
+<p>No status messages to display.</p>
+{% endif %}
+
+<!-- Link to go back to the user's profile -->
+<p><a href="{% url 'show_profile' profile.pk %}">Back to Profile</a></p>
+{% endblock %}

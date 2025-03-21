@@ -1,0 +1,36 @@
+<!--
+  File: friend_suggestions.html
+  Author: Jane Pan (jjanepan@bu.edu)
+  Description: Template for displaying friend suggestions for a given Profile.
+               It shows a list of suggested friends with links to add them.
+               If no suggestions are available, a message is displayed.
+-->
+
+{% extends "base.html" %} {% block content %}
+<!-- Page title displaying the profile's name -->
+<h2>Friend Suggestions for {{ profile.first_name }} {{ profile.last_name }}</h2>
+
+<!-- Check if there are any friend suggestions -->
+{% if suggestions %}
+<ul>
+  <!-- Loop through each suggested friend -->
+  {% for suggestion in suggestions %}
+  <li>
+    <!-- Link to the suggested friend's profile -->
+    <a href="{% url 'show_profile' suggestion.pk %}">
+      {{ suggestion.first_name }} {{ suggestion.last_name }}
+    </a>
+
+    <!-- Link to send a friend request -->
+    <a href="{% url 'add_friend' profile.pk suggestion.pk %}">Add Friend</a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<!-- Display message if no friend suggestions are available -->
+<p>No friend suggestions available.</p>
+{% endif %}
+
+<!-- Link to go back to the user's profile -->
+<p><a href="{% url 'show_profile' profile.pk %}">Back to Profile</a></p>
+{% endblock %}

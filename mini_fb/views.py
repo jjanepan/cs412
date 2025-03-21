@@ -1,31 +1,18 @@
 """
-views.py
-
-This module contains Django class-based views for handling Profile and StatusMessage operations,
-including listing, creating, updating, and deleting profiles and status messages. It also supports
-image uploads associated with status messages.
-
-Views:
-- ShowAllProfilesView: Displays a list of all profiles.
-- ShowProfilePageView: Displays details of a single profile.
-- CreateProfileView: Allows users to create a new profile.
-- CreateStatusMessageView: Allows users to create a status message with image uploads.
-- UpdateProfileView: Allows users to update an existing profile.
-- UpdateStatusMessageView: Allows users to update a status message.
-- DeleteStatusMessageView: Allows users to delete a status message with confirmation.
-
-Dependencies:
-- Django class-based views (ListView, DetailView, CreateView, UpdateView, DeleteView)
-- Django's reverse function for URL redirection.
-- Models: Profile, StatusMessage, Image, StatusImage
-- Forms: CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm, UpdateStatusMessageForm
-
-Author: [Your Name]
+File: views.py
+Author: Jane Pan (jjanepan@bu.edu)
+Description: This module contains Django class-based views for handling Profile and
+             StatusMessage operations, as well as managing friend relationships and
+             displaying a news feed. It includes views for listing, creating, updating,
+             and deleting profiles and status messages, handling image uploads, and
+             supporting friend suggestions and adding friends.
 Date: [Current Date]
 """
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse
+from django.shortcuts import redirect, get_object_or_404
+from django.views import View
 from .forms import (
     CreateProfileForm,
     CreateStatusMessageForm,
@@ -40,7 +27,7 @@ class ShowAllProfilesView(ListView):
     """
     model = Profile
     template_name = 'show_all_profiles.html'
-    context_object_name = 'profiles'  # Passes profiles list to the template
+    context_object_name = 'profiles'
 
 class ShowProfilePageView(DetailView):
     """
@@ -48,12 +35,11 @@ class ShowProfilePageView(DetailView):
     """
     model = Profile
     template_name = 'show_profile.html'
-    # The default context object is "object" referring to the Profile instance.
+    # The context object defaults to "object"
 
 class CreateProfileView(CreateView):
     """
-    A view to create a new Profile.
-    Uses CreateProfileForm for input.
+    A view to create a new Profile using CreateProfileForm.
     After creation, it redirects to the profile's get_absolute_url.
     """
     form_class = CreateProfileForm
@@ -62,43 +48,43 @@ class CreateProfileView(CreateView):
 class CreateStatusMessageView(CreateView):
     """
     A view to create a new StatusMessage and attach it to the correct Profile.
-    This view also handles image uploads and associates them with the new status message.
+    Handles image uploads and creates corresponding Image and StatusImage objects.
     """
     form_class = CreateStatusMessageForm
     template_name = 'create_status_form.html'
 
     def get_context_data(self, **kwargs):
         """
-        Adds the Profile object to the context using the profile's primary key (pk) from the URL.
+        Adds the Profile object to the context using the profile's primary key (pk)
+        from the URL.
         """
         context = super().get_context_data(**kwargs)
         pk = self.kwargs['pk']  # Retrieve profile ID from URL
         profile = Profile.objects.get(pk=pk)
-        context['profile'] = profile  # Pass profile to template
+        context['profile'] = profile
         return context
 
     def form_valid(self, form):
         """
-        Saves the StatusMessage associated with the correct Profile.
-        Handles file uploads, creating corresponding Image and StatusImage objects.
+        Saves the StatusMessage with the correct Profile.
+        Processes uploaded files (from the 'files' field) to create Image and StatusImage objects.
         """
         pk = self.kwargs['pk']
         profile = Profile.objects.get(pk=pk)
-
-        # Assign the profile to the new status message before saving
         status_message = form.save(commit=False)
         status_message.profile = profile
         status_message.save()
 
-        # Process uploaded files (images)
+        # Process uploaded files (if any)
         files = self.request.FILES.getlist('files')
         for f in files:
-            img = Image()  # Create new Image object
-            img.profile = profile  # Associate image with profile
-            img.image_file = f  # Assign file to image object
+            # Create and save an Image object
+            img = Image()
+            img.profile = profile
+            img.image_file = f
             img.save()
-
-            si = StatusImage()  # Create a StatusImage object linking image and status message
+            # Create a linking StatusImage object
+            si = StatusImage()
             si.status_message = status_message
             si.image = img
             si.save()
@@ -114,8 +100,7 @@ class CreateStatusMessageView(CreateView):
 
 class UpdateProfileView(UpdateView):
     """
-    A view to update an existing Profile.
-    Uses UpdateProfileForm for structured input.
+    A view to update an existing Profile using UpdateProfileForm.
     Redirects to the profile's get_absolute_url after saving.
     """
     model = Profile
@@ -125,7 +110,7 @@ class UpdateProfileView(UpdateView):
 class UpdateStatusMessageView(UpdateView):
     """
     A view to update an existing StatusMessage.
-    The update form only allows editing the message field.
+    Only the message field is editable.
     """
     model = StatusMessage
     form_class = UpdateStatusMessageForm
@@ -133,24 +118,65 @@ class UpdateStatusMessageView(UpdateView):
 
     def get_success_url(self):
         """
-        Redirects to the profile page after updating the status message.
+        After updating the status message, redirect to the associated profile page.
         """
-        profile_pk = self.object.profile.pk  # Get associated profile ID
+        profile_pk = self.object.profile.pk
         return reverse('show_profile', kwargs={'pk': profile_pk})
 
 class DeleteStatusMessageView(DeleteView):
     """
     A view to delete a StatusMessage.
-    Displays a confirmation page before deletion.
-    After confirmation, redirects to the profile page.
+    Displays a confirmation page and, upon deletion, redirects to the profile page.
     """
     model = StatusMessage
     template_name = 'delete_status_form.html'
-    context_object_name = 'status'  # Pass status message object to template
+    context_object_name = 'status'
 
     def get_success_url(self):
         """
-        Redirects to the profile page after deleting the status message.
+        After deletion, redirect to the associated profile page.
         """
-        profile_pk = self.object.profile.pk  # Get associated profile ID
+        profile_pk = self.object.profile.pk
         return reverse('show_profile', kwargs={'pk': profile_pk})
+
+class ShowNewsFeedView(DetailView):
+    """
+    Displays the news feed for a given Profile, which includes status messages
+    from the profile and its friends.
+    """
+    model = Profile
+    template_name = 'news_feed.html'
+    context_object_name = 'profile'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['news_feed'] = self.object.get_news_feed()
+        return context
+
+class ShowFriendSuggestionsView(DetailView):
+    """
+    Displays friend suggestions for a given Profile.
+    """
+    model = Profile
+    template_name = 'friend_suggestions.html'
+    context_object_name = 'profile'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['suggestions'] = self.object.get_friend_suggestions()
+        return context
+
+class AddFriendView(View):
+    """
+    A view to add a friend relationship between two Profiles.
+    Expects URL parameters: pk (the current profile's ID) and other_pk (the friend-to-add's ID).
+    """
+    def get(self, request, pk, other_pk):
+        profile = get_object_or_404(Profile, pk=pk)
+        other = get_object_or_404(Profile, pk=other_pk)
+        try:
+            profile.add_friend(other)
+        except ValueError:
+            # Optionally handle self-friending error or duplicates here.
+            pass
+        return redirect('show_profile', pk=pk)

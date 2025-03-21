@@ -22,7 +22,7 @@
       <h1>Mini Facebook</h1>
     </header>
 
-    <!-- Navigation Section: Links to other parts of the application -->
+    <!-- Optional Navigation Section: Put it here or inside the container -->
     <nav>
       <ul>
         <!-- Link to view all profiles -->
@@ -32,14 +32,17 @@
       </ul>
     </nav>
 
-    <!-- Main Section: Content from child templates will be injected here -->
-    <main>
-      {% block content %}
-      <!-- Child template content will be inserted here -->
-      {% endblock %}
-    </main>
+    <!-- Main Container: Applies styling from .container in style.css -->
+    <div class="container">
+      <!-- Main Section: Content from child templates will be injected here -->
+      <main>
+        {% block content %}
+        <!-- Child template content will be inserted here -->
+        {% endblock %}
+      </main>
+    </div>
 
-    <!-- Footer Section: Displays copyright information -->
+    <!-- Footer Section -->
     <footer>
       <p>&copy; 2025 Mini Facebook</p>
     </footer>

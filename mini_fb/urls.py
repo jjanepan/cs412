@@ -3,7 +3,8 @@ File: urls.py
 Author: Jane Pan (jjanepan@bu.edu)
 Description: This file defines the URL patterns for the Mini Facebook application.
              It maps URLs to their corresponding views, allowing users to view 
-             all profiles, view individual profile pages, and create new profiles.
+             all profiles, view individual profile pages, create new profiles,
+             manage status messages, view news feeds, and handle friend operations.
 """
 
 from django.urls import path
@@ -15,8 +16,11 @@ from .views import (
     CreateProfileView,
     CreateStatusMessageView,
     UpdateProfileView,
-    UpdateStatusMessageView,  # Added missing import
-    DeleteStatusMessageView
+    UpdateStatusMessageView,
+    DeleteStatusMessageView,
+    ShowNewsFeedView,
+    ShowFriendSuggestionsView,
+    AddFriendView
 )
 
 urlpatterns = [
@@ -27,14 +31,23 @@ urlpatterns = [
     # URL pattern for creating a status message
     path('profile/<int:pk>/create_status/', CreateStatusMessageView.as_view(), name='create_status'),
     
-    # URL pattern for updating a profile (with trailing slash for consistency)
+    # URL pattern for updating a profile
     path('profile/<int:pk>/update/', UpdateProfileView.as_view(), name='update_profile'),
     
-    # URL pattern for updating a status message (with trailing slash)
+    # URL pattern for updating a status message
     path('status/<int:pk>/update/', UpdateStatusMessageView.as_view(), name='update_status'),
-
-    # URL pattern for deleting a status message (added trailing slash)
+    
+    # URL pattern for deleting a status message
     path('status/<int:pk>/delete/', DeleteStatusMessageView.as_view(), name='delete_status'),
+
+    # URL pattern for displaying the news feed for a profile
+    path('profile/<int:pk>/news_feed/', ShowNewsFeedView.as_view(), name='news_feed'),
+
+    # URL pattern for showing friend suggestions for a profile
+    path('profile/<int:pk>/friend_suggestions/', ShowFriendSuggestionsView.as_view(), name='friend_suggestions'),
+    
+    # URL pattern for adding a friend (pk = current profile, other_pk = profile to add)
+    path('profile/<int:pk>/add_friend/<int:other_pk>/', AddFriendView.as_view(), name='add_friend'),
 ]
 
 if settings.DEBUG:
