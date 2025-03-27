@@ -22,6 +22,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('mini_fb/', include('mini_fb.urls')),
+    path('voters/', include('voter_analytics.urls')),  # Include voter_analytics URLs
 ]
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

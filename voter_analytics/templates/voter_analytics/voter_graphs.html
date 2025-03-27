@@ -1,0 +1,16 @@
+{% extends "voter_analytics/base.html" %} {% block content %}
+<h2>Voter Graphs</h2>
+
+<form method="get">
+  {{ filter_form.as_p }}
+  <button type="submit">Filter</button>
+</form>
+
+{% if birth_year_hist %}
+<h3>Birth Year Distribution</h3>
+{{ birth_year_hist|safe }} {% endif %} {% if party_pie %}
+<h3>Party Distribution</h3>
+{{ party_pie|safe }} {% endif %}
+
+<a href="{% url 'voters' %}">Back to Voter List</a>
+{% endblock %}

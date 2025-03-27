@@ -1,0 +1,22 @@
+{% extends "voter_analytics/base.html" %} {% block content %}
+<h2>Voter Detail</h2>
+<p>Name: {{ voter.first_name }} {{ voter.last_name }}</p>
+<p>
+  Address: {{ voter.street_number }} {{ voter.street_name }} Apt:
+  {{voter.apt_number }}, {{ voter.zip_code }}
+</p>
+<p>Party: {{ voter.party }}</p>
+<p>Date of Birth: {{ voter.date_of_birth }}</p>
+<p>Date of Registration: {{ voter.date_of_registration }}</p>
+<p>Voter Score: {{ voter.voter_score }}</p>
+
+<p>
+  <a
+    href="https://www.google.com/maps/search/{{ voter.street_number }}+{{ voter.street_name }}+{{ voter.zip_code }}"
+  >
+    View on Google Maps
+  </a>
+</p>
+
+<p><a href="{% url 'voters' %}">Back to List</a></p>
+{% endblock %}
