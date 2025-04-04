@@ -1,16 +1,20 @@
-{% extends "voter_analytics/base.html" %} {% block content %}
-<h2>Voter Graphs</h2>
+{% extends "voter_analytics/base.html" %} {% load static %} {% block content %}
+<h2>Voter Analytics Graphs</h2>
 
-<form method="get">
-  {{ filter_form.as_p }}
-  <button type="submit">Filter</button>
-</form>
+<div>
+  <h3>Birth Year Distribution</h3>
+  {{ birth_year_hist|safe }}
+</div>
 
-{% if birth_year_hist %}
-<h3>Birth Year Distribution</h3>
-{{ birth_year_hist|safe }} {% endif %} {% if party_pie %}
-<h3>Party Distribution</h3>
-{{ party_pie|safe }} {% endif %}
+<div>
+  <h3>Party Distribution</h3>
+  {{ party_pie|safe }}
+</div>
 
-<a href="{% url 'voters' %}">Back to Voter List</a>
+<div>
+  <h3>Voter Participation by Election</h3>
+  {{ election_bar|safe }}
+</div>
+
+<p><a href="{% url 'voters' %}">Back to Voter List</a></p>
 {% endblock %}
